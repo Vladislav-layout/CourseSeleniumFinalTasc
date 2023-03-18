@@ -1,18 +1,16 @@
 package ru.ibs.framework.managers;
 
-import ru.ibs.framework.pages.AllBusinessTripsPage;
-import ru.ibs.framework.pages.CreateTripPage;
-import ru.ibs.framework.pages.LoginPage;
-import ru.ibs.framework.pages.StartPage;
+import ru.ibs.framework.pages.CategoryPage;
+import ru.ibs.framework.pages.HomePage;
+import ru.ibs.framework.pages.ProductsPage;
+
 
 public class PageManager {
 
     private static PageManager INSTANCE;
-    private LoginPage loginPage;
-    private StartPage startPage;
-    private AllBusinessTripsPage allBusinessTripsPage;
-    private CreateTripPage createTripPage;
-
+    private HomePage homePage;
+    private CategoryPage categoryPage;
+    private ProductsPage productsPage;
     private PageManager() {
     }
 
@@ -23,32 +21,32 @@ public class PageManager {
         return INSTANCE;
     }
 
-    public LoginPage getLoginPage() {
-        if(loginPage == null) {
-            loginPage = new LoginPage();
+    public HomePage getHomePage() {
+        if(homePage == null) {
+            homePage = new HomePage();
         }
-        return loginPage;
+        return homePage;
     }
 
-    public StartPage getStartPage() {
-        if(startPage == null) {
-            startPage = new StartPage();
+    public CategoryPage getCategoryPage() {
+        if(categoryPage == null) {
+            categoryPage = new CategoryPage();
         }
-        return startPage;
+        return categoryPage;
     }
 
-    public AllBusinessTripsPage getAllBusinessTripsPage() {
-        if(allBusinessTripsPage == null) {
-            allBusinessTripsPage = new AllBusinessTripsPage();
+    public ProductsPage getProductsPage() {
+        if(productsPage == null) {
+            productsPage = new ProductsPage();
         }
-        return allBusinessTripsPage;
+        return productsPage;
     }
 
-    public CreateTripPage getCreateTripPage() {
+/*    public CreateTripPage getCreateTripPage() {
         if(createTripPage == null) {
             createTripPage = new CreateTripPage();
         }
         return createTripPage;
-    }
+    }*/
 
 }

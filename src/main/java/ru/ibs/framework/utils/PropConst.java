@@ -13,11 +13,5 @@ public class PropConst {
 
     public static final String CHROME_DRIVER = "web.driver";
 
-    public static final String LOGIN_TARASKINA = "login_Taraskina";
-
-    public static final String LOGIN_FILIPOVA = "login_Filipova";
-
-    public static final String LOGIN_SECRETAR = "login_Sekretar";
-
-    public static final String PASSWORD = "password";
+    public static final String TITLE_HOME_PAGE = "title.home.page";
 }

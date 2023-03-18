@@ -27,7 +27,6 @@ public class DriverManager {
     }
 
     public void initDriver() {
-
         System.setProperty("webdriver." + propManager.getProperty(PropConst.CHROME_DRIVER), propManager.getProperty(PropConst.PATH_CHROME_DRIVER_WINDOWS));
         driver = new ChromeDriver();
     }
