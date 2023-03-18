@@ -42,11 +42,4 @@ public class PageManager {
         return productsPage;
     }
 
-/*    public CreateTripPage getCreateTripPage() {
-        if(createTripPage == null) {
-            createTripPage = new CreateTripPage();
-        }
-        return createTripPage;
-    }*/
-
 }

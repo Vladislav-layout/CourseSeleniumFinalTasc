@@ -1,12 +1,21 @@
 package ru.ibs.framework.pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.ibs.framework.managers.PageManager;
+
+import java.security.Key;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsPage extends BasePage {
 
+    private final String selectedCardMenu = pageManager.getCategoryPage().selectedCardMenu;
+    private String firstProduct;
+    private String resultSearchPath = "//div[contains(@class, 'Card_wrap__2fsLE')]/descendant::h6";
+    List <WebElement> resultSearch;
     @FindBy(xpath = "//li[3]/a[1]/span[1]")
     private WebElement breadСrumbs;
 
@@ -17,11 +26,23 @@ public class ProductsPage extends BasePage {
     private WebElement maxPrice;
 
     @FindBy(xpath = "//span[text()='Производитель']/../../../following::div/ul/li")
-    private WebElement manufacturer;
+    private List<WebElement> ListCheckBoxFilters;
+
+    @FindBy(xpath = "//span[contains(@class, 'show')]")
+    private List<WebElement> listShowMore;
+
+    @FindBy(xpath = "//span[contains(@class, 'Pagination_count')]")
+    private WebElement paginationCount;
+
+    @FindBy(xpath = "//input[@aria-label='Поиск']")
+    private WebElement searchInput;
+
+    @FindBy(xpath = "//div[@class='ListingFilters_loading__1FzbG']")
+    private WebElement loader;
 
     public ProductsPage checkOpenPage() {
         waitUtilElementToBeClickable(breadСrumbs);
-        Assert.assertEquals("Текст заголовка некорректный.", breadСrumbs.getText(),"Видеокарты");
+        Assert.assertTrue("Хлебные крошки" + breadСrumbs.getText() + " не соответсвуют выбранному подпункту каталога" + selectedCardMenu, selectedCardMenu.contains(breadСrumbs.getText()));
         return this;
     }
 
@@ -41,6 +62,60 @@ public class ProductsPage extends BasePage {
         }
         Assert.assertEquals("Поле '" + namePrice + "' было заполнено некорректно",
                 value, element.getAttribute("value"));
+        return this;
+    }
+
+    public ProductsPage clickShowMore() {
+        for (WebElement showMoreItem : listShowMore) {
+            if (showMoreItem.isDisplayed()) {
+                showMoreItem.click();
+            }
+        }
+        return this;
+    }
+
+    public ProductsPage selectCheckBoxFilters(String nameCheckbox) {
+        for (WebElement checkbox : ListCheckBoxFilters) {
+            if (checkbox.isDisplayed()) {
+                if (checkbox.getText().contains(nameCheckbox)) {
+                    waitUtilElementToBeClickable(checkbox).click();
+                    return this;
+                }
+            } else {
+                clickShowMore();
+                selectCheckBoxFilters(nameCheckbox);
+            }
+        }
+        Assert.fail("Чекбокс с наименованием'" + nameCheckbox + "' не был найден на странице или не виден.");
+        return this;
+    }
+
+    public ProductsPage checkCountResultOfPage(Integer pagination) {
+        resultSearch = new ArrayList<>();
+        resultSearch = driverManager.getDriver().findElements(By.xpath(resultSearchPath));
+        waitUtilElementToBeClickable(resultSearch.get(0));
+        firstProduct = resultSearch.get(0).getText();
+        Assert.assertTrue("Количество найденных товаров (" + resultSearch.size() + ") больше, " +
+                        "чем должно быть на странице(" + pagination + ").",
+                resultSearch.size() <= pagination);
+        return this;
+    }
+
+    public ProductsPage fillFieldSearch() {
+        if (searchInput.isDisplayed()) {
+            fillInputField(searchInput, firstProduct);
+            searchInput.sendKeys(Keys.ENTER);
+            return this;
+        } else {
+            Assert.fail("Поле поиска не найдено на странице");
+        }
+        return this;
+    }
+
+    public ProductsPage checkResultMatchSearch() {
+        List <WebElement> resultSearch = driverManager.getDriver().findElements(By.xpath(resultSearchPath));
+        waitUtilElementToBeClickable(resultSearch.get(0));
+        Assert.assertEquals("Найденный товар не соответсвует искомому.", firstProduct, resultSearch.get(0).getText());
         return this;
     }
 
