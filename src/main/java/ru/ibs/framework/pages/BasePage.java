@@ -6,7 +6,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.ibs.framework.managers.DriverManager;
 import ru.ibs.framework.managers.PageManager;
-import ru.ibs.framework.managers.TestPropManager;
 
 public class BasePage {
 

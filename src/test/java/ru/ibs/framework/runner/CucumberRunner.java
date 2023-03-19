@@ -11,4 +11,5 @@ import org.junit.runner.RunWith;
         features = {"src/test/resources/scenario"},
         tags = {"@Test"}
 )
-public class CucumberRunner {}
+public class CucumberRunner {
+}

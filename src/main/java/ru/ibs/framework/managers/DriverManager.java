@@ -6,7 +6,7 @@ import ru.ibs.framework.utils.PropConst;
 
 public class DriverManager {
 
-    private static DriverManager INSTANCE;
+    private static DriverManager INSTANCE = null;
     private WebDriver driver;
     private TestPropManager propManager = TestPropManager.getInstance();
     private DriverManager () {
@@ -27,13 +27,14 @@ public class DriverManager {
     }
 
     public void initDriver() {
-        System.setProperty("webdriver." + propManager.getProperty(PropConst.CHROME_DRIVER), propManager.getProperty(PropConst.PATH_CHROME_DRIVER_WINDOWS));
+        System.setProperty("webdriver." + propManager.getProperty(PropConst.CHROME_DRIVER),
+                propManager.getProperty(PropConst.PATH_CHROME_DRIVER_WINDOWS));
         driver = new ChromeDriver();
     }
 
     public void quitDriver() {
         if (driver != null) {
-            driver.close();
+            driver.quit();
             driver = null;
         }
     }

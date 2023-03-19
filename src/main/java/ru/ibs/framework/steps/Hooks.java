@@ -6,13 +6,15 @@ import ru.ibs.framework.managers.InitManager;
 
 public class Hooks {
 
+
     @Before
     public void before() {
-        InitManager.initFramework();
+       InitManager.initFramework();
     }
 
     @After
-    public void after() {
+    public void afterSuite() {
         InitManager.quitFramework();
     }
+
 }

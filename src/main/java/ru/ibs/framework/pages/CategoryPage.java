@@ -1,12 +1,9 @@
 package ru.ibs.framework.pages;
 
-import javafx.scene.text.Text;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import javax.swing.text.html.CSS;
 import java.util.List;
 
 public class CategoryPage extends BasePage {

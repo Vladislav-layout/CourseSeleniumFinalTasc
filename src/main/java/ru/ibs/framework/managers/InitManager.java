@@ -8,7 +8,7 @@ import static ru.ibs.framework.utils.PropConst.*;
 
 public class InitManager {
     private static final TestPropManager props = TestPropManager.getInstance();
-    private static final ru.ibs.framework.managers.DriverManager driverManager = ru.ibs.framework.managers.DriverManager.getInstance();
+    private static final DriverManager driverManager = DriverManager.getInstance();
 
     public static void initFramework() {
         driverManager.getDriver().manage().window().maximize();

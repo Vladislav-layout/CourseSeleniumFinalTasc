@@ -2,7 +2,6 @@ package ru.ibs.framework.steps;
 
 import io.cucumber.java.bg.И;
 import ru.ibs.framework.managers.PageManager;
-import ru.ibs.framework.pages.ProductsPage;
 
 public class ProductPageStep {
 
@@ -27,10 +26,12 @@ public class ProductPageStep {
     public void checkCountResultOfPage(Integer pagination) {
         pageManager.getProductsPage().checkCountResultOfPage(pagination);
     }
+
     @И("^Ввести в поисковую строку запомненное наименование первого товара из предыдущего шага$")
     public void fillFieldSearch() {
         pageManager.getProductsPage().fillFieldSearch();
     }
+
     @И("^Проверить, что наименование товара соответствует сохраненному значению")
     public void checkResultMatchSearch() {
         pageManager.getProductsPage().checkResultMatchSearch();

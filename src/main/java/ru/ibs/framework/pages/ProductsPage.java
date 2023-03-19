@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class ProductsPage extends BasePage {
     private final String selectedCardMenu = pageManager.getCategoryPage().selectedCardMenu;
     private String firstProduct;
     private String resultSearchPath = "//div[contains(@class, 'Card_wrap__2fsLE')]/descendant::h6";
-    List <WebElement> resultSearch;
+    List<WebElement> resultSearch;
     @FindBy(xpath = "//li[3]/a[1]/span[1]")
     private WebElement breadСrumbs;
 
@@ -24,8 +24,7 @@ public class ProductsPage extends BasePage {
 
     @FindBy(xpath = "//section[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input[1]")
     private WebElement maxPrice;
-
-    @FindBy(xpath = "//span[text()='Производитель']/../../../following::div/ul/li")
+    @FindBy(xpath = "//label[contains(@class, 'Checkb')]")
     private List<WebElement> ListCheckBoxFilters;
 
     @FindBy(xpath = "//span[contains(@class, 'show')]")
@@ -36,9 +35,8 @@ public class ProductsPage extends BasePage {
 
     @FindBy(xpath = "//input[@aria-label='Поиск']")
     private WebElement searchInput;
-
-    @FindBy(xpath = "//div[@class='ListingFilters_loading__1FzbG']")
-    private WebElement loader;
+    @FindBy(xpath = "//div[contains(@class,'Grid_col-2__21hOj')]/descendant::div[@class='ListingFilters_loading__1FzbG']")
+    private WebElement loaderFilters;
 
     public ProductsPage checkOpenPage() {
         waitUtilElementToBeClickable(breadСrumbs);
@@ -91,13 +89,17 @@ public class ProductsPage extends BasePage {
     }
 
     public ProductsPage checkCountResultOfPage(Integer pagination) {
-        resultSearch = new ArrayList<>();
-        resultSearch = driverManager.getDriver().findElements(By.xpath(resultSearchPath));
-        waitUtilElementToBeClickable(resultSearch.get(0));
-        firstProduct = resultSearch.get(0).getText();
-        Assert.assertTrue("Количество найденных товаров (" + resultSearch.size() + ") больше, " +
-                        "чем должно быть на странице(" + pagination + ").",
-                resultSearch.size() <= pagination);
+        try {
+            loaderFilters.isDisplayed();
+            wait.until(ExpectedConditions.invisibilityOf(loaderFilters));
+        } catch (Exception e) {
+            resultSearch = new ArrayList<>();
+            resultSearch = driverManager.getDriver().findElements(By.xpath(resultSearchPath));
+            firstProduct = resultSearch.get(0).getText();
+            Assert.assertTrue("Количество найденных товаров (" + resultSearch.size() + ") больше, " +
+                            "чем должно быть на странице(" + pagination + ").",
+                    resultSearch.size() <= pagination);
+        }
         return this;
     }
 
@@ -113,7 +115,7 @@ public class ProductsPage extends BasePage {
     }
 
     public ProductsPage checkResultMatchSearch() {
-        List <WebElement> resultSearch = driverManager.getDriver().findElements(By.xpath(resultSearchPath));
+        List<WebElement> resultSearch = driverManager.getDriver().findElements(By.xpath(resultSearchPath));
         waitUtilElementToBeClickable(resultSearch.get(0));
         Assert.assertEquals("Найденный товар не соответсвует искомому.", firstProduct, resultSearch.get(0).getText());
         return this;
