@@ -14,7 +14,7 @@ public class ProductsPage extends BasePage {
 
     private final String selectedCardMenu = pageManager.getCategoryPage().selectedCardMenu;
     private String firstProduct;
-    private String resultSearchPath = "//div[contains(@class, 'Card_wrap__2fsLE')]/descendant::h6";
+    private String resultSearchPath = "//div[contains(@class, 'Card_wrap')]/descendant::h6";
     List<WebElement> resultSearch;
     @FindBy(xpath = "//li[3]/a[1]/span[1]")
     private WebElement breadСrumbs;

@@ -10,7 +10,7 @@ public class CategoryPage extends BasePage {
     private String selectedCatalogMenu = pageManager.getHomePage().selectedCatalogMenu;
     @FindBy(xpath = "//div[1]/ul[1]/li[2]/a[1]")
     private WebElement breadСrumbs;
-    @FindBy(xpath = "//span[@class='CardCategory_counter__1TA3L']/..")
+    @FindBy(xpath = "//span[contains(@class, 'CardCategory_counter')]/..")
     private List<WebElement> listCardCategory;
 
 

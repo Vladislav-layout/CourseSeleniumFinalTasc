@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import static ru.ibs.framework.utils.PropConst.*;
 
 public class InitManager {
+
     private static final TestPropManager props = TestPropManager.getInstance();
     private static final DriverManager driverManager = DriverManager.getInstance();
 

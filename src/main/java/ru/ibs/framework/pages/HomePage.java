@@ -10,9 +10,9 @@ public class HomePage extends BasePage {
 
     @FindBy(xpath = "//button[contains(@class, 'NavigationBar')]")
     private WebElement buttonCatalog;
-    @FindBy(xpath = "//a[contains(@class, 'Catalog_mainCategory__2ngff')]")
+    @FindBy(xpath = "//a[contains(@class, 'Catalog_mainCategory')]")
     private List<WebElement> listCatalogMenu;
-    @FindBy(xpath = "//a[@class='Header_logo__TCVHx']")
+    @FindBy(xpath = "//a[contains(@class, 'Header_logo')]")
     private WebElement logo;
 
     public HomePage checkOpenPage(String title) {

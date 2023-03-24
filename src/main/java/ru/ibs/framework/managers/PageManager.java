@@ -42,4 +42,9 @@ public class PageManager {
         return productsPage;
     }
 
+    public static void quitPageManager() {
+        if (INSTANCE != null) {
+            INSTANCE = null;
+        }
+    }
 }
